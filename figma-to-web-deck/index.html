@@ -300,70 +300,111 @@ strong, b { font-weight: 700; color: var(--white); }
 }
 
 /* === 2 · WHAT IT IS — input → pipeline → output === */
-.flow2 { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 30px; }
-.node { flex: none; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.flow2 { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 56px; }
+.node { flex: none; display: flex; flex-direction: column; align-items: center; gap: 26px; }
 .flow2 > svg { flex: none; }
 .node .cap { font-size: 20px; font-weight: 700; letter-spacing: -0.2px; }
 .node .sub { font-size: 16px; color: var(--muted); }
 /* three stacked Figma frames */
-.frames { position: relative; width: 300px; height: 204px; }
+.frames { position: relative; width: 360px; height: 240px; }
 .frames i {
     position: absolute; border: 2px solid #4f5f6a; border-radius: 10px;
     background: #0a1012; display: block;
 }
-.frames i:nth-child(1) { width: 204px; height: 144px; left: 0;    top: 0;  border-color: #6c7f8a; }
-.frames i:nth-child(2) { width: 150px; height: 126px; left: 150px; top: 30px; }
-.frames i:nth-child(3) { width: 95px;  height: 112px; left: 205px; top: 60px; }
+.frames i:nth-child(1) { width: 245px; height: 170px; left: 0;    top: 0;  border-color: #6c7f8a; }
+.frames i:nth-child(2) { width: 180px; height: 148px; left: 180px; top: 35px; }
+.frames i:nth-child(3) { width: 114px; height: 132px; left: 246px; top: 70px; }
 .frames b {
-    position: absolute; bottom: -4px; left: 0; font-size: 15px;
+    position: absolute; bottom: -6px; left: 0; font-size: 15px;
     color: var(--muted); font-weight: 500; letter-spacing: 0.08em;
 }
-/* the pipeline block */
+/* the plugin itself. Deliberately NOT the stage count - slide 3 opens on
+   "Nine stages, in order." and spending the 9 here flattens that reveal. */
 .pipe {
-    width: 300px; height: 204px; border-radius: 16px;
+    width: 360px; height: 240px; border-radius: 16px;
     border: 2px solid var(--pass); background: rgba(91,206,255,.07);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
 }
-.pipe .big { font-size: 58px; font-weight: 700; letter-spacing: -1.5px; line-height: 1; }
-.pipe .lbl { font-size: 17px; color: var(--pass); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
-.pipe .ticks { display: flex; gap: 5px; margin-top: 6px; }
-.pipe .ticks s { width: 16px; height: 5px; border-radius: 3px; background: var(--pass); opacity: .45; display: block; }
+.pipe .mk { display: block; width: 56px; height: 56px; }
+.pipe .mk svg { display: block; width: 56px; height: 56px; }
+.pipe .nmv { font-size: 19px; font-weight: 700; color: var(--pass); letter-spacing: -0.2px; }
+.pipe .ver { font-size: 15px; font-weight: 500; letter-spacing: 0.12em; color: var(--muted); }
 /* browser window */
-.browser { width: 300px; height: 204px; border: 2px solid #6c7f8a; border-radius: 10px; overflow: hidden; background: #0d1518; }
-.browser .bar { height: 34px; background: #1c272c; display: flex; align-items: center; gap: 8px; padding-left: 14px; }
+.browser { width: 360px; height: 240px; border: 2px solid #6c7f8a; border-radius: 10px; overflow: hidden; background: #0d1518; }
+.browser .bar { height: 38px; background: #1c272c; display: flex; align-items: center; gap: 8px; padding-left: 16px; }
 .browser .bar u { width: 10px; height: 10px; border-radius: 50%; background: #5d6e78; display: block; }
-.browser .page { width: 100%; box-sizing: border-box; padding: 18px 18px; display: flex; flex-direction: column; gap: 10px; }
-.browser .page em { display: block; flex: none; height: 13px; border-radius: 3px; background: #465b66; }
-.browser .page em.w1 { width: 64%; height: 24px; background: #93a7b2; }
+.browser .page { width: 100%; box-sizing: border-box; padding: 22px 22px; display: flex; flex-direction: column; gap: 12px; }
+.browser .page em { display: block; flex: none; height: 15px; border-radius: 3px; background: #465b66; }
+.browser .page em.w1 { width: 64%; height: 28px; background: #93a7b2; }
 .browser .page em.w2 { width: 100%; }
 .browser .page em.w3 { width: 84%; }
-.browser .page em.w4 { width: 46%; background: var(--pass); opacity: .8; height: 18px; border-radius: 45px; }
+.browser .page em.w4 { width: 46%; background: var(--pass); opacity: .8; height: 20px; border-radius: 45px; }
 .arrow { flex: none; color: #6c7f8a; }
-.facts2 { display: flex; gap: 70px; margin-top: 64px; }
+.facts2 { display: flex; gap: 70px; margin-top: 44px; }
 .facts2 div { display: flex; align-items: baseline; gap: 14px; font-size: 24px; font-weight: 500; }
 .facts2 span { color: var(--pass); font-weight: 700; font-size: 18px; }
+/* the qualifier carries real meaning, so it stays on the slide - muted, not cut.
+   Named class on purpose: a bare em is a grey bar in .browser .page and a bare i
+   is a swatch in .legend / .key6. */
+.facts2 .qual { color: var(--muted); font-size: 17px; font-weight: 400; }
 
 /* === 3 · HOW IT WORKS === */
-.cmds { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; align-items: start; }
-.cmdcard { border: 1px solid var(--hairline); border-radius: 16px; padding: 26px 30px 24px; background: #0a0a0a; }
-.cmdcard .when {
-    font-size: 14px; font-weight: 700; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--pass); margin: 0 0 16px;
-    display: flex; align-items: center; gap: 12px;
+/* One command, not a terminal transcript: cd / claude were ceremony, not product.
+   align-items: flex-start is what keeps .cmdline at its content width instead of
+   letting it run the full 1656px. */
+.run2 { position: relative; display: flex; flex-direction: column; align-items: flex-start; margin-top: 48px; }
+
+/* Hover popovers, shared by both triggers on the .once line. Each panel is a
+   DOM descendant of its .pop trigger but is positioned against .run2, so it can
+   span the full 1656 and still stay open while the pointer is inside it.
+   Absolute => neither can shift the slide's layout, which stays at 740px of the
+   836px box. Only one can be open at a time, so the two overlapping is moot.
+   Hover does not exist on a clicker or in the PDF, so everything the panels
+   hold is an elaboration - nothing load-bearing lives only in here. */
+.pop {
+    color: var(--white); cursor: help;
+    border-bottom: 1px dashed rgba(218,235,250,.5);
 }
-.cmdcard .when u {
-    width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--pass);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 13px; text-decoration: none; flex: none;
+.pop:focus { outline: none; }
+.pop:focus-visible { outline: 2px solid var(--pass); outline-offset: 3px; }
+.popp {
+    position: absolute; left: 0; right: 0; bottom: calc(100% + 18px); z-index: 5;
+    background: #0c1316; border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 30px 34px; box-shadow: 0 26px 60px rgba(0,0,0,.6);
+    opacity: 0; visibility: hidden; transform: translateY(8px);
+    transition: opacity .28s cubic-bezier(.16,1,.3,1), transform .28s cubic-bezier(.16,1,.3,1), visibility .28s;
 }
+.pop:hover .popp,
+.pop:focus .popp { opacity: 1; visibility: visible; transform: none; }
+.poph {
+    display: block; font-size: 14px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--pass); margin-bottom: 20px;
+}
+.popg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px 34px; }
+/* direct-child selector on purpose: a bare .popg span would also match the
+   label wrapper and turn it into a flex row, putting each answer beside its
+   label instead of under it. */
+.popg > span { display: flex; gap: 12px; font-size: 17px; line-height: 1.4; }
+.popg > span > span { display: block; font-weight: 500; color: var(--white); }
+.popg i {
+    flex: none; font-style: normal; font-size: 13px; font-weight: 700; line-height: 1.85;
+    color: var(--pass);
+}
+.popg u { display: block; text-decoration: none; color: var(--muted); font-weight: 400; margin-top: 4px; }
+.popf { display: block; margin-top: 22px; font-size: 15px; color: var(--muted); }
+/* the file panel labels a path rather than numbering a question, so its cells
+   carry no <i> and the path itself is the label. Without .paths the cell would
+   inherit the question grid flex row and sit the note beside the path. */
+.popg.paths > span { display: block; }
+.popg.paths .pth { display: block; color: var(--pass); font-weight: 500; letter-spacing: -0.1px; }
 .cmdline {
     background: #141414; border-left: 3px solid var(--pass); border-radius: 0 8px 8px 0;
-    padding: 12px 18px; margin-bottom: 8px;
+    padding: 12px 18px;
     font-size: 22px; font-weight: 500; letter-spacing: 0.01em; color: var(--white);
 }
-.cmdcard .d { font-size: 18px; line-height: 1.5; color: var(--muted); margin: 16px 0 0; }
-.s2 .note3 { margin-top: 22px; font-size: 19px; color: var(--muted); }
-.s2 .note3 b { color: var(--white); font-weight: 500; }
+.run2 .d { font-size: 19px; line-height: 1.5; color: var(--tint); margin: 16px 0 0; }
+.run2 .once { font-size: 17px; line-height: 1.5; color: var(--muted); margin: 14px 0 0; }
+.run2 .once b { color: var(--white); font-weight: 500; }
 
 /* === 4 · STAGES — all nine === */
 .phasebar { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 13px; margin-top: 54px; }
@@ -410,6 +451,29 @@ strong, b { font-weight: 700; color: var(--white); }
 .s3x .legend .r { color: var(--fail); }
 .s3x .skipnote { margin-top: 15px; font-size: 18px; color: #8f96c8; }
 .s3x .skipnote b { color: #c3c8ea; font-weight: 500; }
+
+/* === 3b · THE PIPELINE BOARD ===
+   Same 9-column grid as .stages9, so each lane marker sits under the stage that
+   triggers it. Only four stages move the screen; the other five columns stay
+   empty on purpose - a lane under every stage would be a lie. */
+.boardlbl {
+    font-size: 15px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--pass); margin: 32px 0 0;
+}
+.lanebar { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 13px; margin-top: 16px; }
+.ln { border-left: 2px solid rgba(218,235,250,.38); padding-left: 12px; }
+.ln .mv {
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+}
+.ln b { display: block; font-size: 17px; font-weight: 500; line-height: 1.25; color: var(--white); margin-top: 5px; }
+/* Stage 0 does not move anything - it refuses to start unless the screen is
+   already in lane 1. Dashed and muted, so it cannot be read as a move. */
+.ln.pre { border-left-style: dashed; }
+.ln.pre b { color: var(--muted); font-weight: 400; }
+/* margin shorthand, not margin-top: a bare margin-top leaves the UA default
+   margin-bottom: 1em in place, which pushed the legend ~17px further down. */
+.s3x .boardnote { margin: 18px 0 0; font-size: 17px; color: #8f96c8; }
 
 /* === 5 · THE GATE — a loop, not a list === */
 .track { position: relative; margin: 76px 0 0; }
@@ -578,8 +642,7 @@ strong, b { font-weight: 700; color: var(--white); }
       <div class="foot">
         <div class="pills">
           <span class="pill">Webflow</span>
-          <span class="pill">Plain HTML</span>
-          <span class="pill">One screen per session</span>
+          <span class="pill">HTML</span>
         </div>
         <span class="tiny">13 October 2026</span>
       </div>
@@ -592,8 +655,8 @@ strong, b { font-weight: 700; color: var(--white); }
         <div class="rt">01 · What it is</div>
       </div>
       <div class="inner">
-        <p class="eyebrow reveal">What it is</p>
-        <h2 class="head reveal" style="max-width:34ch">What it is, and how to run it.</h2>
+        <p class="eyebrow reveal">Orientation</p>
+        <h2 class="head reveal" style="max-width:34ch">What it is, and how you run it.</h2>
         <div class="flow2 reveal">
           <div class="node">
             <div class="frames"><i></i><i></i><i></i><b>1440 · 980 · 480</b></div>
@@ -605,9 +668,9 @@ strong, b { font-weight: 700; color: var(--white); }
           </svg>
           <div class="node">
             <div class="pipe">
-              <span class="big">9</span>
-              <span class="lbl">Stages</span>
-              <span class="ticks"><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s></span>
+              <span class="mk"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg></span>
+              <span class="nmv">frost-figma-to-web</span>
+              <span class="ver">v0.14.0</span>
             </div>
             <div><div class="cap">The plugin</div></div>
           </div>
@@ -623,21 +686,41 @@ strong, b { font-weight: 700; color: var(--white); }
             <div><div class="cap">Webflow or HTML</div></div>
           </div>
         </div>
-        <div class="cmds reveal">
-          <div class="cmdcard">
-            <p class="when"><u>1</u> Once per project</p>
-            <div class="cmdline">/project-setup Cronus</div>
-            <p class="d">Eight questions. Creates the project folder.</p>
-          </div>
-          <div class="cmdcard">
-            <p class="when"><u>2</u> For every screen</p>
-            <div class="cmdline">cd Cronus</div>
-            <div class="cmdline">claude</div>
-            <div class="cmdline">/start-conversion &lt;figma link&gt;</div>
-            <p class="d">Reads which stage the project is at, and starts there.</p>
-          </div>
+        <div class="run2 reveal">
+          <div class="cmdline">/start-conversion</div>
+          <p class="d">It reads which stage the project is at, and starts there.</p>
+          <p class="once">Once per project &middot; <b>/project-setup &lt;name&gt;</b> &middot; <span class="pop" tabindex="0">eight questions<span class="popp" role="note">
+            <span class="poph">Asked together, in one message</span>
+            <span class="popg">
+              <span><i>1</i><span>Target<u>Webflow or plain HTML</u></span></span>
+              <span><i>2</i><span>Scope<u>One page or several, and how many share a navbar and footer</u></span></span>
+              <span><i>3</i><span>Design set<u>All screens ready, or arriving in waves</u></span></span>
+              <span><i>4</i><span>Figma<u>The file link, and one frame link per breakpoint</u></span></span>
+              <span><i>5</i><span>Destination<u>The Webflow site and page, or the output folder</u></span></span>
+              <span><i>6</i><span>Class namespace<u>Two to four letters</u></span></span>
+              <span><i>7</i><span>May it write to Figma<u>Annotations and pipeline lane moves need it</u></span></span>
+              <span><i>8</i><span>Pipeline row<u>Row code and page title, if it sits on the board</u></span></span>
+            </span>
+            <span class="popf">A question left blank stays a placeholder. Nothing is guessed.</span>
+          </span></span>, then it creates <span class="pop" tabindex="0">the project folder<span class="popp" role="note">
+            <span class="poph">What it writes into the folder</span>
+            <span class="popg paths">
+              <span><span class="pth">CLAUDE.md</span><u>Facts, decisions, deviations and open state</u></span>
+              <span><span class="pth">audit.md</span><u>Findings F1, F2, F3 on &mdash; each disposed at Stage 7</u></span>
+              <span><span class="pth">relationship-table.md</span><u>Copied from the template</u></span>
+              <span><span class="pth">build-log.md</span><u>The build narrative</u></span>
+              <span><span class="pth">jobs/</span><u>Empty &mdash; Stage 1 writes one folder per screen</u></span>
+              <span><span class="pth">assets/</span><u>Empty &mdash; Stage 0.5 exports and converts into it</u></span>
+              <span><span class="pth">custom-code/</span><u>Webflow target only; an output folder instead, for HTML</u></span>
+              <span><span class="pth">.claude/settings.local.json</span><u>Permissions, including the decision to let Figma be written</u></span>
+            </span>
+            <span class="popf">Each is created only if it does not already exist.</span>
+          </span></span>.</p>
         </div>
-        <p class="note3 reveal"><b>One conversion per session.</b> Figma stays read-only unless the project allows annotations.</p>
+        <div class="facts2 reveal">
+          <div><span>&#10022;</span>One page at a time</div>
+          <!-- <div><span>&#10022;</span>Figma stays read-only<span class="qual">unless the project allows annotations</span></div> -->
+        </div>
       </div>
     </section>
 
@@ -667,6 +750,15 @@ strong, b { font-weight: 700; color: var(--white); }
           <div class="st"><span class="num">6</span><span class="nm">Behaviours</span></div>
           <div class="st"><span class="num">7</span><span class="nm">Fidelity pass</span></div>
         </div>
+        <p class="boardlbl reveal">Where the screen moves on the pipeline board</p>
+        <div class="lanebar reveal">
+          <span class="ln pre" style="grid-column:1"><span class="mv">Expects it in</span><b>For Design Conversion</b></span>
+          <span class="ln" style="grid-column:3"><span class="mv">Moves to</span><b>Converting</b></span>
+          <span class="ln" style="grid-column:6"><span class="mv">Moves to</span><b>Ready for Devt</b></span>
+          <span class="ln" style="grid-column:7"><span class="mv">At the first write</span><b>Developing</b></span>
+          <span class="ln" style="grid-column:9"><span class="mv">Moves to</span><b>For Code and peer Review</b></span>
+        </div>
+        <!-- <p class="boardnote">Only if the screen is on the board and the project may write to Figma. It never moves one past <b>For Code and peer Review</b> — the lanes after that belong to people.</p> -->
         <p class="legend"><span><i class="g">Gate</i>won't continue until it passes</span><span><i class="r">↻</i>repeats for every section</span><span><i class="y">◆</i>waits for your answer</span></p>
         <p class="skipnote">Stages <b>0, 2, 3 and 4</b> set up the whole project — later screens skip them and start at Stage 1.</p>
       </div>
@@ -862,7 +954,7 @@ class SlidePresentation {
         });
 
         document.addEventListener('click', e => {
-            if (e.target.closest('.deck-controls')) return;
+            if (e.target.closest('.deck-controls') || e.target.closest('.pop')) return;
             this.next();
         });
 
