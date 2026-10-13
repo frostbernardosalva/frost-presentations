@@ -1,0 +1,14 @@
+# Keep LF everywhere, in the repo AND in the working tree on checkout.
+#
+# This is not cosmetic. .claude/skills/frontend-slides/ is vendored verbatim from
+# an upstream repo and its PROVENANCE.md asserts the files are byte-identical;
+# CRLF would break that. More immediately, scripts/*.sh stop working the moment a
+# CR reaches the shebang line, and Windows clones default to core.autocrlf=true.
+* text=auto eol=lf
+
+# Never touch binaries.
+*.woff2 binary
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.ico    binary

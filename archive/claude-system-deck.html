@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Design System — 3-slide showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================================
+   Tokens — transcribed from DESIGN.md (VoltAgent/awesome-design-md, claude)
+   Rule #3 of the spec's Iteration Guide: use token refs everywhere, never
+   inline hex. These declarations are the only place a literal colour appears.
+   =========================================================================== */
+:root {
+  /* colors — brand & accent */
+  --color-primary:              #cc785c;
+  --color-primary-active:       #a9583e;
+  --color-primary-disabled:     #e6dfd8;
+  --color-accent-teal:          #5db8a6;
+  --color-accent-amber:         #e8a55a;
+  --color-success:              #5db872;
+  --color-warning:              #d4a017;
+  --color-error:                #c64545;
+
+  /* colors — surface */
+  --color-canvas:               #faf9f5;
+  --color-surface-soft:         #f5f0e8;
+  --color-surface-card:         #efe9de;
+  --color-surface-cream-strong: #e8e0d2;
+  --color-surface-dark:         #181715;
+  --color-surface-dark-elevated:#252320;
+  --color-surface-dark-soft:    #1f1e1b;
+  --color-hairline:             #e6dfd8;
+  --color-hairline-soft:        #ebe6df;
+
+  /* colors — text */
+  --color-ink:                  #141413;
+  --color-body-strong:          #252523;
+  --color-body:                 #3d3d3a;
+  --color-muted:                #6c6a64;
+  --color-muted-soft:           #8e8b82;
+  --color-on-primary:           #ffffff;
+  --color-on-dark:              #faf9f5;
+  --color-on-dark-soft:         #a09d96;
+
+  /* typography — families. Copernicus and StyreneB are licensed Anthropic
+     faces; the spec names these open substitutes under "Font Substitutes". */
+  --font-display: "EB Garamond", "Cormorant Garamond", "Tiempos Headline", Garamond, "Times New Roman", serif;
+  --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  /* typography — ramp */
+  --display-xl: 64px;  --display-xl-ls: -1.5px;  --display-xl-lh: 1.05;
+  --display-lg: 48px;  --display-lg-ls: -1px;    --display-lg-lh: 1.1;
+  --display-md: 36px;  --display-md-ls: -0.5px;  --display-md-lh: 1.15;
+  --display-sm: 28px;  --display-sm-ls: -0.3px;  --display-sm-lh: 1.2;
+  --title-lg: 22px;    --title-md: 18px;         --title-sm: 16px;
+  --body-md: 16px;     --body-sm: 14px;
+  --caption: 13px;     --caption-up: 12px;
+  --code: 14px;        --button: 14px;           --nav-link: 14px;
+
+  /* rounded */
+  --rounded-xs: 4px; --rounded-sm: 6px; --rounded-md: 8px;
+  --rounded-lg: 12px; --rounded-xl: 16px; --rounded-pill: 9999px;
+
+  /* spacing — 4px base unit */
+  --spacing-xxs: 4px;  --spacing-xs: 8px;   --spacing-sm: 12px;
+  --spacing-md: 16px;  --spacing-lg: 24px;  --spacing-xl: 32px;
+  --spacing-xxl: 48px; --spacing-section: 96px;
+
+  --scale: 1;
+}
+
+/* ===========================================================================
+   Deck chrome
+   =========================================================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: #0e0e0d;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage { display: grid; place-items: center; height: 100%; }
+
+.deck {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  transform: scale(var(--scale));
+  transform-origin: center center;
+  cursor: pointer;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+  /* Vertical padding is reduced from the spec's 96px section rhythm to 64px:
+     a 720px-tall slide is not a scrolling page. Horizontal stays at 96px. */
+  padding: 64px var(--spacing-section);
+}
+.slide.is-active { display: flex; flex-direction: column; }
+
+/* Type primitives. Display is always serif at weight 400 with negative
+   tracking — the spec calls this non-negotiable and 700 explicitly off-brand. */
+.display-xl, .display-lg, .display-md, .display-sm {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+.display-xl { font-size: var(--display-xl); letter-spacing: var(--display-xl-ls); line-height: var(--display-xl-lh); }
+.display-lg { font-size: var(--display-lg); letter-spacing: var(--display-lg-ls); line-height: var(--display-lg-lh); }
+.display-md { font-size: var(--display-md); letter-spacing: var(--display-md-ls); line-height: var(--display-md-lh); }
+.display-sm { font-size: var(--display-sm); letter-spacing: var(--display-sm-ls); line-height: var(--display-sm-lh); }
+
+.title-md   { font-size: var(--title-md); font-weight: 500; line-height: 1.4; }
+.title-sm   { font-size: var(--title-sm); font-weight: 500; line-height: 1.4; }
+.body-md    { font-size: var(--body-md); font-weight: 400; line-height: 1.55; }
+.body-sm    { font-size: var(--body-sm); font-weight: 400; line-height: 1.55; }
+.caption    { font-size: var(--caption); font-weight: 500; line-height: 1.4; }
+.caption-up { font-size: var(--caption-up); font-weight: 500; line-height: 1.4; letter-spacing: 1.5px; text-transform: uppercase; }
+
+/* Wordmark and spike mark. The mark never inverts inside the wordmark itself,
+   so it takes one flat colour per surface context. */
+.wordmark { display: flex; align-items: center; gap: var(--spacing-sm); }
+.wordmark .spike { width: 20px; height: 20px; display: block; }
+.wordmark .name {
+  font-family: var(--font-display);
+  font-size: var(--title-lg);
+  font-weight: 400;
+  letter-spacing: -0.3px;
+}
+
+/* Buttons — default and active states only. The spec's Don'ts close with
+   "don't add hover state styling beyond what the system already encodes". */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--button); font-weight: 500; line-height: 1;
+  padding: 12px 20px; height: 40px;
+  border: 0; border-radius: var(--rounded-md);
+  text-decoration: none; cursor: pointer;
+}
+.btn-primary          { background: var(--color-primary); color: var(--color-on-primary); }
+.btn-primary:active   { background: var(--color-primary-active); }
+.btn-on-coral         { background: var(--color-canvas); color: var(--color-ink); }
+.btn-on-coral:active  { background: var(--color-surface-cream-strong); }
+
+.text-link {
+  font-size: var(--body-md); font-weight: 500;
+  color: var(--color-primary); text-decoration: none;
+}
+.text-link:active { text-decoration: underline; }
+
+.badge-coral {
+  display: inline-block;
+  background: var(--color-primary); color: var(--color-on-primary);
+  border-radius: var(--rounded-pill); padding: 4px 12px;
+}
+.badge-pill {
+  display: inline-block;
+  background: var(--color-surface-card); color: var(--color-ink);
+  border-radius: var(--rounded-pill); padding: 4px 12px;
+}
+
+/* ===========================================================================
+   Slide 1 — cream canvas hero (surface mode: canvas)
+   =========================================================================== */
+#s1 { background: var(--color-canvas); color: var(--color-ink); }
+
+.slide-top {
+  flex: none;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.hero-band {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* the spec's 6/6 hero split */
+  align-items: center;
+  gap: var(--spacing-xxl);
+}
+
+.hero-copy .eyebrow { color: var(--color-muted); margin-bottom: var(--spacing-md); }
+.hero-copy h1 { margin-bottom: var(--spacing-lg); max-width: 12ch; }
+.hero-copy p  { color: var(--color-body); max-width: 44ch; margin-bottom: var(--spacing-xl); }
+.hero-actions { display: flex; align-items: center; gap: var(--spacing-lg); }
+
+/* hero-illustration-card — rounded.xl, the spec's largest radius, reserved
+   for exactly this container. Line art rather than photography. */
+.hero-illustration-card {
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--rounded-xl);
+  padding: var(--spacing-xl);
+  display: grid; place-items: center;
+}
+
+.slide-foot {
+  flex: none;
+  display: flex; align-items: center; gap: var(--spacing-sm);
+}
+
+/* ===========================================================================
+   Slide 2 — dark product chrome (surface mode: surface-dark)
+   Pacing rule: never two consecutive bands in the same surface mode.
+   =========================================================================== */
+#s2 { background: var(--color-surface-dark); color: var(--color-on-dark); }
+
+#s2 .slide-head { flex: none; margin-bottom: var(--spacing-md); }
+#s2 .slide-head p { color: var(--color-on-dark-soft); margin-top: var(--spacing-xs); max-width: 76ch; }
+
+.swatch-row {
+  flex: none;
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+.swatch { display: flex; flex-direction: column; gap: var(--spacing-xxs); }
+.swatch i {
+  display: block; height: 44px;
+  border-radius: var(--rounded-md);
+  /* muted, not surface-dark-elevated: the ink and surface-dark swatches are
+     near-black and need a readable edge against the dark band */
+  border: 1px solid var(--color-muted);
+}
+.swatch b { font-size: 11px; font-weight: 500; color: var(--color-on-dark); }
+.swatch span { font-family: var(--font-mono); font-size: 10px; color: var(--color-muted-soft); }
+
+.panels {
+  flex: 1;
+  display: grid; grid-template-columns: 1.3fr 1fr;
+  gap: var(--spacing-lg);
+  min-height: 0;
+}
+
+/* code-window-card — the signature element of Claude Code product pages */
+.code-window-card {
+  background: var(--color-surface-dark-soft);
+  border: 1px solid var(--color-surface-dark-elevated);
+  border-radius: var(--rounded-lg);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.code-window-card .chrome {
+  flex: none;
+  display: flex; align-items: center; gap: var(--spacing-xs);
+  padding: 10px var(--spacing-lg);
+  border-bottom: 1px solid var(--color-surface-dark-elevated);
+}
+.code-window-card .chrome em {
+  font-family: var(--font-mono); font-size: 11px; font-style: normal;
+  color: var(--color-muted-soft); margin-left: var(--spacing-xs);
+}
+.dot { width: 8px; height: 8px; border-radius: var(--rounded-pill); display: inline-block; }
+
+.code-window-card pre {
+  flex: 1; margin: 0; padding: var(--spacing-md) var(--spacing-lg);
+  font-family: var(--font-mono);
+  font-size: var(--code); line-height: 1.6;
+  overflow: hidden;   /* spec: code scrolls, never wraps */
+}
+.code-window-card .ln { color: var(--color-muted-soft); user-select: none; }
+.tok-sel  { color: var(--color-accent-teal); }
+.tok-prop { color: var(--color-on-dark-soft); }
+.tok-val  { color: var(--color-accent-amber); }
+.tok-com  { color: var(--color-muted); }
+
+.code-window-card .statusbar {
+  flex: none;
+  background: var(--color-surface-dark-elevated);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--color-muted-soft);
+}
+
+.mode-stack { display: grid; grid-template-rows: repeat(3, 1fr); gap: var(--spacing-sm); min-height: 0; }
+
+/* product-mockup-card-dark — elevated card inside a dark band */
+.mode-card {
+  background: var(--color-surface-dark-elevated);
+  border-radius: var(--rounded-lg);
+  padding: var(--spacing-lg);
+  display: flex; align-items: center; gap: var(--spacing-md);
+}
+.mode-card .chip {
+  width: 44px; height: 44px; flex: none;
+  border-radius: var(--rounded-md);
+  border: 1px solid var(--color-muted);
+}
+.mode-card b { display: block; font-size: var(--title-sm); font-weight: 500; }
+.mode-card em {
+  display: block; font-style: normal;
+  font-size: var(--body-sm); color: var(--color-on-dark-soft); margin-top: 2px;
+}
+
+/* ===========================================================================
+   Slide 3 — full-bleed coral callout (surface mode: primary)
+   "The coral surface IS the voltage." Generous here, scarce everywhere else.
+   =========================================================================== */
+#s3 { background: var(--color-primary); color: var(--color-on-primary); }
+
+/* Centred: a full-bleed coral band is the page's closing moment, and the
+   spec gives it an h2, one sub-line and a single cream CTA — nothing to
+   anchor a left rag against, so the block sits on the slide's axis. */
+#s3 .cta-inner {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+#s3 .cta-inner h2 { max-width: 24ch; margin-bottom: var(--spacing-lg); }
+#s3 .cta-inner p  { max-width: 58ch; margin-bottom: var(--spacing-xl); opacity: 0.92; }
+#s3 .cta-actions { display: flex; align-items: center; gap: var(--spacing-lg); }
+#s3 .cta-actions .quiet { font-size: var(--body-sm); opacity: 0.85; }
+
+#s3 .attribution {
+  flex: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  padding-top: var(--spacing-md);
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: var(--spacing-xl);
+  opacity: 0.9;
+}
+#s3 .attribution small {
+  font-size: var(--body-sm); font-weight: 400;
+  text-align: right; max-width: 62ch;
+}
+
+/* ===========================================================================
+   Navigation
+   =========================================================================== */
+.nav {
+  position: absolute; right: var(--spacing-section); bottom: var(--spacing-lg);
+  display: flex; align-items: center; gap: var(--spacing-md);
+  z-index: 5;
+}
+.nav .dots { display: flex; gap: var(--spacing-xs); }
+.nav .dots button {
+  width: 8px; height: 8px; padding: 0;
+  border: 0; border-radius: var(--rounded-pill);
+  background: currentColor; opacity: 0.28;
+  cursor: pointer;
+}
+.nav .dots button[aria-current="true"] { opacity: 1; }
+.nav .count { font-family: var(--font-mono); font-size: 11px; opacity: 0.6; }
+
+/* each nav inherits a legible colour from its own surface mode */
+#s1 .nav { color: var(--color-ink); }
+#s2 .nav { color: var(--color-on-dark); }
+#s3 .nav { color: var(--color-on-primary); }
+
+/* ===========================================================================
+   Print — Ctrl+P yields a real 3-page landscape deck
+   =========================================================================== */
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  html, body { height: auto; overflow: visible; background: #ffffff; }
+  .stage { display: block; height: auto; }
+  .deck { transform: none; width: 1280px; height: auto; }
+  .slide, .slide.is-active {
+    display: flex !important; flex-direction: column;
+    position: relative; width: 1280px; height: 720px;
+    break-after: page; page-break-after: always;
+  }
+  .nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+<div class="deck" id="deck">
+
+  <!-- ==================== SLIDE 1 — cream canvas hero ==================== -->
+  <section class="slide is-active" id="s1" aria-label="Slide 1 of 3">
+    <div class="slide-top">
+      <div class="wordmark">
+        <svg class="spike" viewBox="0 0 24 24" aria-hidden="true">
+          <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <line x1="12" y1="2.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="18.7" y2="18.7"/>
+            <line x1="18.7" y1="5.3" x2="5.3" y2="18.7"/>
+          </g>
+        </svg>
+        <span class="name">Claude</span>
+      </div>
+      <span class="badge-coral caption-up">Design system</span>
+    </div>
+
+    <div class="hero-band">
+      <div class="hero-copy">
+        <p class="eyebrow caption-up">DESIGN.md &middot; alpha</p>
+        <h1 class="display-xl">A warm-canvas editorial interface</h1>
+        <p class="body-md">Cream, coral and dark navy &mdash; the trinity behind claude.com. A tinted canvas instead of cool white, serif display type at regular weight, and real product chrome shown rather than illustrated.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#s2">Explore the tokens</a>
+          <a class="text-link" href="#s3">Read the spec</a>
+        </div>
+      </div>
+
+      <div class="hero-illustration-card">
+        <!-- line art: coral and dark-navy strokes on cream, never photoreal -->
+        <svg viewBox="0 0 440 320" width="100%" aria-hidden="true">
+          <g fill="none" stroke-linecap="round">
+            <circle cx="148" cy="150" r="94" stroke="var(--color-primary)" stroke-width="1.5"/>
+            <circle cx="148" cy="150" r="60" stroke="var(--color-ink)" stroke-width="1.5" opacity="0.45"/>
+            <g stroke="var(--color-primary)" stroke-width="2.4">
+              <line x1="148" y1="104" x2="148" y2="196"/>
+              <line x1="102" y1="150" x2="194" y2="150"/>
+              <line x1="115" y1="117" x2="181" y2="183"/>
+              <line x1="181" y1="117" x2="115" y2="183"/>
+            </g>
+            <g stroke="var(--color-ink)" stroke-width="1.5" opacity="0.7">
+              <line x1="288" y1="92"  x2="400" y2="92"/>
+              <line x1="288" y1="116" x2="370" y2="116"/>
+              <line x1="288" y1="140" x2="392" y2="140"/>
+              <line x1="288" y1="164" x2="342" y2="164"/>
+            </g>
+            <rect x="288" y="198" width="112" height="62" rx="12" stroke="var(--color-ink)" stroke-width="1.5" opacity="0.7"/>
+          </g>
+          <circle cx="148" cy="150" r="7" fill="var(--color-primary)"/>
+          <circle cx="344" cy="229" r="5" fill="var(--color-primary)"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="badge-pill caption">#faf9f5 &nbsp;canvas</span>
+      <span class="badge-pill caption">#cc785c &nbsp;coral</span>
+      <span class="badge-pill caption">#181715 &nbsp;navy</span>
+    </div>
+
+    <nav class="nav" aria-label="Slide navigation">
+      <div class="dots"></div>
+      <span class="count"></span>
+    </nav>
+  </section>
+
+  <!-- ==================== SLIDE 2 — dark product chrome ==================== -->
+  <section class="slide" id="s2" aria-label="Slide 2 of 3">
+    <div class="slide-head">
+      <h2 class="display-md">The token system</h2>
+      <p class="body-md">Three surface modes alternate band by band. The cream-to-dark contrast is the page&rsquo;s pacing mechanism &mdash; never two the same in a row.</p>
+    </div>
+
+    <div class="swatch-row">
+      <div class="swatch"><i style="background: var(--color-canvas)"></i><b>canvas</b><span>#faf9f5</span></div>
+      <div class="swatch"><i style="background: var(--color-surface-card)"></i><b>surface-card</b><span>#efe9de</span></div>
+      <div class="swatch"><i style="background: var(--color-primary)"></i><b>primary</b><span>#cc785c</span></div>
+      <div class="swatch"><i style="background: var(--color-primary-active)"></i><b>primary-active</b><span>#a9583e</span></div>
+      <div class="swatch"><i style="background: var(--color-surface-dark)"></i><b>surface-dark</b><span>#181715</span></div>
+      <div class="swatch"><i style="background: var(--color-ink)"></i><b>ink</b><span>#141413</span></div>
+    </div>
+
+    <div class="panels">
+      <div class="code-window-card">
+        <div class="chrome">
+          <span class="dot" style="background: var(--color-primary)"></span>
+          <span class="dot" style="background: var(--color-accent-amber)"></span>
+          <span class="dot" style="background: var(--color-success)"></span>
+          <em>tokens.css</em>
+        </div>
+        <pre><span class="ln"> 1 </span><span class="tok-com">/* warm, deliberately not cool white */</span>
+<span class="ln"> 2 </span><span class="tok-sel">:root</span> {
+<span class="ln"> 3 </span>  <span class="tok-prop">--canvas</span>:        <span class="tok-val">#faf9f5</span>;
+<span class="ln"> 4 </span>  <span class="tok-prop">--surface-card</span>:  <span class="tok-val">#efe9de</span>;
+<span class="ln"> 5 </span>  <span class="tok-prop">--surface-dark</span>:  <span class="tok-val">#181715</span>;
+<span class="ln"> 6 </span>  <span class="tok-prop">--primary</span>:       <span class="tok-val">#cc785c</span>;
+<span class="ln"> 7 </span>  <span class="tok-prop">--ink</span>:           <span class="tok-val">#141413</span>;
+<span class="ln"> 8 </span>  <span class="tok-com">/* weight 400. never 700. */</span>
+<span class="ln"> 9 </span>  <span class="tok-prop">--display-xl</span>:    <span class="tok-val">64px/1.05</span>;
+<span class="ln">10 </span>  <span class="tok-prop">--display-xl-ls</span>: <span class="tok-val">-1.5px</span>;
+<span class="ln">11 </span>  <span class="tok-prop">--section</span>:       <span class="tok-val">96px</span>;
+<span class="ln">12 </span>}</pre>
+        <div class="statusbar">
+          <span>73 DESIGN.md files &middot; MIT</span>
+          <span><span class="dot" style="background: var(--color-accent-teal); margin-right: 6px"></span>tokens resolved</span>
+        </div>
+      </div>
+
+      <div class="mode-stack">
+        <div class="mode-card">
+          <span class="chip" style="background: var(--color-canvas)"></span>
+          <span><b>Cream canvas</b><em>The default body floor</em></span>
+        </div>
+        <div class="mode-card">
+          <span class="chip" style="background: var(--color-surface-card)"></span>
+          <span><b>Light cream cards</b><em>Feature and content surfaces</em></span>
+        </div>
+        <div class="mode-card">
+          <span class="chip" style="background: var(--color-surface-dark)"></span>
+          <span><b>Dark navy</b><em>Code, terminals, the footer</em></span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Slide navigation">
+      <div class="dots"></div>
+      <span class="count"></span>
+    </nav>
+  </section>
+
+  <!-- ================ SLIDE 3 — full-bleed coral callout ================ -->
+  <section class="slide" id="s3" aria-label="Slide 3 of 3">
+    <div class="slide-top">
+      <div class="wordmark">
+        <svg class="spike" viewBox="0 0 24 24" aria-hidden="true">
+          <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <line x1="12" y1="2.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="18.7" y2="18.7"/>
+            <line x1="18.7" y1="5.3" x2="5.3" y2="18.7"/>
+          </g>
+        </svg>
+        <span class="name">Claude</span>
+      </div>
+      <span class="caption-up">awesome-design-md</span>
+    </div>
+
+    <div class="cta-inner">
+      <h2 class="display-lg">Drop it in. Ship the whole look.</h2>
+      <p class="body-md">One Markdown file in your project root, and a coding agent has the palette, the type ramp, the radius hierarchy and the pacing rules &mdash; before it writes a line of markup.</p>
+      <div class="cta-actions">
+        <a class="btn btn-on-coral" href="#s1">Back to the start</a>
+        <span class="quiet">github.com/VoltAgent/awesome-design-md</span>
+      </div>
+    </div>
+
+    <div class="attribution">
+      <span class="caption-up">Style exercise &mdash; not official Anthropic material</span>
+      <small>DESIGN.md documents publicly visible CSS values and is provided as is. Display type substitutes EB&nbsp;Garamond for the licensed Copernicus face.</small>
+    </div>
+
+    <nav class="nav" aria-label="Slide navigation">
+      <div class="dots"></div>
+      <span class="count"></span>
+    </nav>
+  </section>
+
+</div>
+</div>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var index = 0;
+
+  // Build dot controls inside every slide's nav so each inherits that
+  // slide's colour rather than needing a fixed overlay above all surfaces.
+  Array.prototype.forEach.call(document.querySelectorAll('.nav .dots'), function (holder) {
+    slides.forEach(function (_, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      b.addEventListener('click', function (e) { e.stopPropagation(); show(i); });
+      holder.appendChild(b);
+    });
+  });
+
+  function show(next) {
+    index = (next + slides.length) % slides.length;
+    slides.forEach(function (s, i) { s.classList.toggle('is-active', i === index); });
+    Array.prototype.forEach.call(document.querySelectorAll('.nav .count'), function (el) {
+      el.textContent = (index + 1) + ' / ' + slides.length;
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.nav .dots'), function (holder) {
+      Array.prototype.forEach.call(holder.children, function (b, i) {
+        b.setAttribute('aria-current', i === index ? 'true' : 'false');
+      });
+    });
+    console.log('[deck] slide ' + (index + 1) + ' of ' + slides.length);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+        e.preventDefault(); show(index + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+        e.preventDefault(); show(index - 1); break;
+      case 'Home': e.preventDefault(); show(0); break;
+      case 'End':  e.preventDefault(); show(slides.length - 1); break;
+    }
+  });
+
+  // Click anywhere to advance; in-slide anchors jump to their target instead.
+  document.getElementById('deck').addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#s"]') : null;
+    if (a) {
+      e.preventDefault();
+      show(slides.indexOf(document.querySelector(a.getAttribute('href'))));
+      return;
+    }
+    show(index + 1);
+  });
+
+  function fit() {
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    document.documentElement.style.setProperty('--scale', s);
+  }
+  window.addEventListener('resize', fit);
+  fit();
+  show(0);
+})();
+</script>
+</body>
+</html>

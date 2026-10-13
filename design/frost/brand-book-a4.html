@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Frost Design Group — Brand Book</title>
+<style>
+/* Frost Design Group — one-page A4 brand book.
+   Extracted from frostdesigngroup.com on 2026-10-12. Nothing invented.
+   Principles section dropped: the site does not publish any. */
+
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Light.woff2") format("woff2");   font-weight: 300; font-style: normal; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Medium.woff2") format("woff2");  font-weight: 500; font-style: normal; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Bold.woff2") format("woff2");    font-weight: 700; font-style: normal; }
+
+:root {
+  --primary:   #0b1464;
+  --secondary: #040808;
+  --tertiary:  #ffffff;
+  --bg:        #040808;
+  --surface:   #060a12;
+  --border:    #212629;
+  --text:      #ffffff;
+  --muted:     #8fa0ab;
+  --font: "Sailec", "Segoe UI", system-ui, sans-serif;
+}
+
+@page { size: A4; margin: 0; }
+html, body { margin: 0; padding: 0; background: var(--bg); }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+.page {
+  width: 210mm; height: 297mm;
+  background: var(--bg); color: var(--text);
+  font-family: var(--font);
+  padding: 18mm 16mm 14mm;
+  display: flex; flex-direction: column; gap: 7mm;
+  position: relative; overflow: hidden;
+}
+
+.label { font-size: 8.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #daebfa; margin: 0 0 4mm; }
+
+/* head */
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12mm; }
+.brand { display: flex; align-items: center; gap: 9px; }
+.brand svg { display: block; }
+.brand h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.brand .sub { margin: 2px 0 0; font-size: 8.5px; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; }
+.head-right { text-align: right; font-size: 8.5px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.8; }
+.head-right .tag { color: var(--text); font-size: 11px; letter-spacing: 0; text-transform: none; display: block; margin-bottom: 3px; }
+
+.hero { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 7mm 0; }
+.hero .lo { font-weight: 300; font-size: 21px; color: var(--muted); display: block; line-height: 1.15; }
+.hero .hi { font-weight: 700; font-size: 30px; letter-spacing: -0.5px; line-height: 1.1; display: block; }
+
+/* colours */
+.colors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+.swatch { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.swatch .fill { height: 22mm; }
+.swatch .meta { padding: 7px 9px 9px; background: var(--surface); }
+.swatch .tier { font-size: 10.5px; font-weight: 700; display: block; }
+.swatch .hex { font-size: 9px; color: var(--muted); display: block; margin-top: 2px; letter-spacing: 0.04em; }
+.swatch .use { font-size: 8.5px; color: var(--muted); line-height: 1.4; margin-top: 4px; display: block; }
+
+/* middle */
+.twocol { display: grid; grid-template-columns: 1.15fr 1fr; gap: 5mm; }
+.card { border: 1px solid var(--border); border-radius: 8px; padding: 5mm; background: var(--surface); }
+.type-display { font-size: 25px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 0; }
+.type-weights { margin: 3mm 0 0; font-size: 15px; line-height: 1.55; }
+.type-weights span { margin-right: 7px; }
+.type-note { font-size: 8.5px; color: var(--muted); line-height: 1.5; margin: 3mm 0 0; }
+.specs { list-style: none; margin: 0; padding: 0; font-size: 9px; color: var(--muted); line-height: 1.85; }
+.specs b { color: var(--text); font-weight: 500; }
+.btn { display: inline-block; background: var(--primary); color: #fff; font-weight: 700; font-size: 11px; padding: 8px 15px 7px; border-radius: 45px; }
+
+/* palette strip */
+.strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3mm; }
+.tile { border: 1px solid var(--border); border-radius: 8px; padding: 4mm 2mm; background: var(--surface); display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.tile .dot { width: 24px; height: 24px; border-radius: 6px; }
+.tile .nm { font-size: 8.5px; font-weight: 500; text-align: center; }
+.tile .hx { font-size: 7.5px; color: var(--muted); letter-spacing: 0.03em; }
+
+/* wordmarks */
+.wordmarks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+.wm { border: 1px solid var(--border); border-radius: 8px; padding: 5mm; background: var(--surface); display: flex; flex-direction: column; gap: 5px; min-height: 26mm; justify-content: center; }
+.wm .lockup { display: flex; align-items: center; gap: 8px; }
+.wm .name { font-weight: 700; font-size: 13px; }
+.wm .split .lo { font-weight: 300; color: var(--muted); display: block; font-size: 11px; }
+.wm .split .hi { font-weight: 700; font-size: 14px; line-height: 1.15; display: block; }
+.wm .accent { color: #daebfa; }
+.wm .cap { font-size: 7.5px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: auto; }
+
+.foot { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; padding-top: 4mm; border-top: 1px solid var(--border); font-size: 7.5px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg>
+      <div>
+        <h1>Frost Design Group</h1>
+        <p class="sub">Brand Book · v1</p>
+      </div>
+    </div>
+    <div class="head-right">
+      <span class="tag">We design screens experienced by millions.</span>
+      Extracted 12 Oct 2026 · frostdesigngroup.com
+    </div>
+  </div>
+
+  <div class="hero">
+    <span class="lo">Frost is a</span>
+    <span class="hi">User Interface Design Agency</span>
+  </div>
+
+  <div>
+    <p class="label">Colour hierarchy</p>
+    <div class="colors">
+      <div class="swatch">
+        <div class="fill" style="background:#0b1464"></div>
+        <div class="meta"><span class="tier">Frost Navy</span><span class="hex">#0B1464</span><span class="use">Primary. Set by Frost; supersedes the blue the live site paints.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background:#040808"></div>
+        <div class="meta"><span class="tier">Night Black</span><span class="hex">#040808</span><span class="use">Secondary. The dominant canvas, alternating with true black.</span></div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background:#ffffff"></div>
+        <div class="meta"><span class="tier">White</span><span class="hex">#FFFFFF</span><span class="use">Tertiary. All type on dark, and the mark itself.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="twocol">
+    <div class="card">
+      <p class="label" style="margin-bottom:3mm">Typography</p>
+      <p class="type-display">Sailec</p>
+      <p class="type-weights">
+        <span style="font-weight:300">Light</span>
+        <span style="font-weight:400">Regular</span>
+        <span style="font-weight:500">Medium</span>
+        <span style="font-weight:700">Bold</span>
+      </p>
+      <p class="type-note">One family for everything — display, body, navigation, labels. No second face, no mono. Display carries negative tracking: 80px/-1.44px at hero, 40px/-1.2px at page headline. Body sits at 16px/22px, normal tracking.</p>
+    </div>
+    <div class="card">
+      <p class="label" style="margin-bottom:3mm">Geometry &amp; components</p>
+      <p style="margin:0 0 3mm"><span class="btn">Work with Frost</span></p>
+      <ul class="specs">
+        <li><b>Radius</b> 45px pill, or ~3px. Nothing between.</li>
+        <li><b>Button</b> #0B1464, white, Sailec 700, 14/24/12px.</li>
+        <li><b>Fields</b> no box — one 1px rule in #2E3949.</li>
+        <li><b>Surfaces</b> dark-first; shadows essentially unused.</li>
+        <li><b>Eyebrow</b> 12px, 700, uppercase, 0.18em, in blue.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <p class="label">Extended palette</p>
+    <div class="strip">
+      <div class="tile"><span class="dot" style="background:#8fa0ab"></span><span class="nm">Muted</span><span class="hx">#8FA0AB</span></div>
+      <div class="tile"><span class="dot" style="background:#daebfa"></span><span class="nm">Tint blue</span><span class="hx">#DAEBFA</span></div>
+      <div class="tile"><span class="dot" style="background:#2e3949"></span><span class="nm">Tealish</span><span class="hx">#2E3949</span></div>
+      <div class="tile"><span class="dot" style="background:#212629"></span><span class="nm">Dark</span><span class="hx">#212629</span></div>
+      <div class="tile"><span class="dot" style="background:#b1bacc"></span><span class="nm">Ash grey</span><span class="hx">#B1BACC</span></div>
+      <div class="tile"><span class="dot" style="background:#5bceff"></span><span class="nm">Bluish cyan</span><span class="hx">#5BCEFF</span></div>
+    </div>
+  </div>
+
+  <div>
+    <p class="label">Wordmarks · Lockups</p>
+    <div class="wordmarks">
+      <div class="wm">
+        <div class="lockup"><svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg><span class="name">Frost Design Group</span></div>
+        <span class="cap">Mark + wordmark</span>
+      </div>
+      <div class="wm">
+        <div class="split"><span class="lo">Frost is a</span><span class="hi">User Interface<br>Design Agency</span></div>
+        <span class="cap">Split weight · the site's hero</span>
+      </div>
+      <div class="wm">
+        <div class="split"><span class="hi" style="font-size:20px">FROST<span class="accent">.</span></span></div>
+        <span class="cap">Accent lockup</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>design/frost/brand-book-a4.pdf · full reference in design-system.html</span>
+    <span>Primary #0B1464 set by Frost · Sailec licensed · internal use</span>
+  </div>
+
+</div>
+</body>
+</html>

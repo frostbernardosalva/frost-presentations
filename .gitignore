@@ -1,0 +1,8 @@
+# Local Claude Code settings — contains machine-specific absolute paths.
+# The skills in .claude/skills/ ARE tracked on purpose: they travel with the folder.
+.claude/settings.local.json
+
+# OS cruft
+Thumbs.db
+desktop.ini
+.DS_Store

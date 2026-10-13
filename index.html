@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frost Design Group — Presentations</title>
+
+<!--
+  ENTRY POINT. This is the index for every presentation in this folder.
+
+  Unlike the decks, this page is a NORMAL RESPONSIVE PAGE, not a fixed 1920x1080
+  stage. Do not copy the deck stage rules into it.
+
+  ---------------------------------------------------------------------------
+  TO ADD A PRESENTATION: copy one <a class="deck"> block in the "Presentations"
+  section below and edit the five fields. Nothing else needs to change - the
+  grid reflows on its own.
+
+      href        the deck's index.html, relative to this file
+      .tag        a short status chip; use class "tag live" or "tag draft"
+      .deck-meta  slide count, brand, date
+      h3          the deck's title
+      p           one sentence on what it argues
+
+  Keep the newest deck first.
+  ---------------------------------------------------------------------------
+
+  Fonts load from design/frost/fonts/ rather than a copy beside this file. Each
+  DECK carries its own fonts so it can be sent on alone; this page cannot be
+  sent on alone anyway, since it is only a list of links into this folder.
+-->
+
+<style>
+@font-face { font-family: "Sailec"; font-style: normal; font-weight: 300; font-display: swap;
+             src: url("design/frost/fonts/Sailec%20Light.woff2") format("woff2"); }
+@font-face { font-family: "Sailec"; font-style: normal; font-weight: 400; font-display: swap;
+             src: url("design/frost/fonts/Sailec%20Regular.woff2") format("woff2"); }
+@font-face { font-family: "Sailec"; font-style: normal; font-weight: 500; font-display: swap;
+             src: url("design/frost/fonts/Sailec%20Medium.woff2") format("woff2"); }
+@font-face { font-family: "Sailec"; font-style: normal; font-weight: 700; font-display: swap;
+             src: url("design/frost/fonts/Sailec%20Bold.woff2") format("woff2"); }
+
+:root {
+    --navy:      #0b1464;   /* brand primary, set by Frost - surfaces only */
+    --canvas:    #040808;   /* night black */
+    --white:     #ffffff;
+    --tint:      #daebfa;   /* accent text; the navy is unreadable at small sizes */
+    --muted:     #8fa0ab;
+    --hairline:  #212629;
+    --rule-navy: #1b2478;
+    --pass:      #5bceff;
+    --wait:      #f0b45a;
+    --font: "Sailec", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--white);
+    font-family: var(--font);
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+
+/* ---------------------------------------------------------------- header -- */
+
+.top {
+    border-bottom: 1px solid var(--hairline);
+    background: linear-gradient(180deg, rgba(11,20,100,.45), rgba(11,20,100,0));
+}
+.top .wrap { display: flex; align-items: center; gap: 14px; padding-top: 30px; padding-bottom: 30px; }
+.top img { width: 30px; height: 30px; display: block; }
+.top .nm { font-weight: 700; font-size: 18px; letter-spacing: -0.2px; }
+.top .rt { margin-left: auto; font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
+           text-transform: uppercase; color: var(--muted); }
+
+.hero { padding: 92px 0 72px; }
+.hero .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
+                 text-transform: uppercase; color: var(--tint); margin: 0 0 22px; }
+.hero h1 { font-size: 60px; line-height: 1.04; letter-spacing: -1.8px; font-weight: 700;
+           margin: 0 0 24px; max-width: 16ch; }
+.hero p { font-size: 20px; color: var(--muted); margin: 0; max-width: 56ch; }
+
+/* ----------------------------------------------------------------- lists -- */
+
+section { padding-bottom: 76px; }
+
+h2.sec {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 22px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--hairline);
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
+
+/* a presentation */
+.deck {
+    display: block; text-decoration: none; color: inherit;
+    border: 1px solid var(--rule-navy); border-radius: 12px; padding: 30px 32px 28px;
+    background: linear-gradient(170deg, rgba(11,20,100,.5), rgba(11,20,100,.14));
+    transition: border-color .18s ease, transform .18s ease, background .18s ease;
+}
+.deck:hover, .deck:focus-visible {
+    border-color: var(--pass);
+    transform: translateY(-3px);
+    background: linear-gradient(170deg, rgba(11,20,100,.78), rgba(11,20,100,.26));
+}
+.deck:focus-visible { outline: 2px solid var(--pass); outline-offset: 3px; }
+
+.tag {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; padding: 4px 11px; border-radius: 45px; margin-bottom: 18px;
+}
+.tag.live  { color: var(--pass); border: 1px solid rgba(91,206,255,.45); }
+.tag.draft { color: var(--wait); border: 1px solid rgba(240,180,90,.5); }
+
+.deck h3 { font-size: 27px; font-weight: 700; letter-spacing: -0.6px; line-height: 1.15; margin: 0 0 10px; }
+.deck p  { font-size: 16px; color: #a8aed8; margin: 0 0 20px; }
+.deck-meta { font-size: 13px; color: var(--muted); margin: 0 0 20px; }
+.go { font-size: 16px; font-weight: 500; color: var(--tint); }
+.deck:hover .go { color: var(--pass); }
+
+/* a supporting resource - quieter than a deck */
+.res {
+    display: flex; align-items: baseline; gap: 16px; text-decoration: none; color: inherit;
+    border: 1px solid var(--hairline); border-radius: 12px; padding: 22px 26px;
+    transition: border-color .18s ease, background .18s ease;
+}
+.res:hover, .res:focus-visible { border-color: #3a4450; background: rgba(255,255,255,.03); }
+.res:focus-visible { outline: 2px solid var(--pass); outline-offset: 3px; }
+.res .t { font-size: 18px; font-weight: 500; }
+.res .d { font-size: 14px; color: var(--muted); margin-left: auto; text-align: right; }
+
+.note { font-size: 14px; color: var(--muted); margin: 18px 0 0; max-width: 72ch; }
+.note b { color: #a8aed8; font-weight: 500; }
+
+/* ---------------------------------------------------------------- footer -- */
+
+.foot { border-top: 1px solid var(--hairline); padding: 34px 0 60px; }
+.foot .wrap { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; }
+.foot span { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 680px) {
+    .wrap { padding: 0 24px; }
+    .hero { padding: 60px 0 48px; }
+    .hero h1 { font-size: 40px; letter-spacing: -1px; }
+    .hero p { font-size: 18px; }
+    .grid { grid-template-columns: 1fr; }
+    .res { flex-direction: column; gap: 6px; }
+    .res .d { margin-left: 0; text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.01ms !important; }
+    .deck:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <img src="design/frost/logo.svg" alt="">
+    <span class="nm">Frost Design Group</span>
+    <span class="rt">Index</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <p class="eyebrow">Internal</p>
+    <h1>Presentations</h1>
+    <p>Decks built in the Frost brand. Each one is a single self-contained HTML file — open it
+       in a browser, no server and no install, and present full-screen.</p>
+  </div>
+
+  <!-- ===================== DECKS ===================== -->
+  <section>
+    <h2 class="sec">Decks</h2>
+    <div class="grid">
+
+      <a class="deck" href="figma-to-web-deck/index.html">
+        <span class="tag live">Current</span>
+        <h3>Figma to Web</h3>
+        <p>How the conversion plugin improves accuracy — the nine stages, the seven-row gate,
+           where the time actually goes, and what it still cannot do.</p>
+        <p class="deck-meta">6 slides · Frost brand · October 2026</p>
+        <span class="go">Open deck →</span>
+      </a>
+
+      <!-- Copy this block for the next presentation, newest first:
+
+      <a class="deck" href="FOLDER/index.html">
+        <span class="tag draft">Draft</span>
+        <h3>TITLE</h3>
+        <p>ONE SENTENCE ON WHAT IT ARGUES.</p>
+        <p class="deck-meta">N slides · Frost brand · MONTH YEAR</p>
+        <span class="go">Open deck →</span>
+      </a>
+
+      -->
+
+    </div>
+  </section>
+
+  <!-- ===================== DESIGN SYSTEM ===================== -->
+  <section>
+    <h2 class="sec">Design system</h2>
+    <div class="grid">
+
+      <a class="res" href="design/frost/design-system.html">
+        <span class="t">Frost design system</span>
+        <span class="d">The full spec · HTML</span>
+      </a>
+
+      <a class="res" href="design/frost/brand-book-a4.pdf">
+        <span class="t">Brand book</span>
+        <span class="d">One page · A4 PDF</span>
+      </a>
+
+    </div>
+    <p class="note">Every visual value in the decks derives from the spec. The primary
+       <b>#0B1464</b> is a decision by Frost, not a value extracted from the live site — and it
+       measures 1.24:1 on the near-black canvas, so it is a surface colour only, never small
+       text. <b>Sailec is a licensed typeface</b>, self-hosted here for internal use; check the
+       licence before publishing any of this publicly.</p>
+  </section>
+
+  <!-- ===================== ARCHIVE ===================== -->
+  <section>
+    <h2 class="sec">Archive</h2>
+    <div class="grid">
+
+      <a class="res" href="archive/claude-system-deck.html">
+        <span class="t">Claude design system deck</span>
+        <span class="d">3 slides · 1280×720</span>
+      </a>
+
+      <a class="res" href=".frontend-slides/slide-previews/style-c.html">
+        <span class="t">Style direction C</span>
+        <span class="d">One slide · the look that shipped</span>
+      </a>
+
+    </div>
+    <p class="note">These belong to an <b>earlier design system</b> — cream, coral, EB Garamond —
+       whose spec is no longer in this folder. They still open, but do not edit them against the
+       Frost system or try to reconcile the two: they are a different system, not an out-of-date
+       version of this one.</p>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Frost Design Group · internal</span>
+    <span>See <b>CLAUDE.md</b> for architecture · <b>md/HANDOFF.md</b> to hand this folder on</span>
+  </div>
+</footer>
+
+</body>
+</html>

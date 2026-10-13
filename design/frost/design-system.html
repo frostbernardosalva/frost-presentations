@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frost Design Group — Design System</title>
+<style>
+/* ============================================================
+   Frost Design Group — design system reference
+   Extracted from https://www.frostdesigngroup.com/ on 2026-10-12.
+   Every value here came from the live site: either measured off
+   the rendered page, or read from the site's own variable set.
+   Nothing is invented. Sections the site does not publish
+   (design principles) are omitted rather than filled in.
+   ============================================================ */
+
+/* Sailec — the brand face, self-hosted from the licensed files */
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Thin.woff2") format("woff2");    font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Light.woff2") format("woff2");   font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Medium.woff2") format("woff2");  font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Bold.woff2") format("woff2");    font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sailec"; src: url("fonts/Sailec%20Regular%20Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  /* colour hierarchy — what the brand actually paints */
+  --frost-navy:   #0b1464;   /* PRIMARY - Frost's decision, see footer */
+  --accent-text:  #daebfa;   /* small accent text; the navy is unreadable at this size */
+  --night-black:  #040808;   /* the dominant canvas */
+  --true-black:   #000000;   /* full-bleed bands */
+  --white:        #ffffff;
+
+  /* measured off the rendered page */
+  --muted:        #8fa0ab;
+  --tint-blue:    #daebfa;
+  --tint-pale:    #f4faff;
+  --ink-light:    #41393e;
+  --deep-navy:    #272e42;
+
+  /* declared in the site's own variable set */
+  --night:        #060a12;
+  --dark:         #212629;
+  --tealish-blue: #2e3949;
+  --carbon-gray:  #595f63;
+  --ash-grey:     #b1bacc;
+  --bluish-cyan:  #5bceff;
+  --ceramic:      #fbfffa;
+
+  --surface:      #060a12;
+  --hairline:     #212629;
+  --radius-pill:  45px;
+  --font: "Sailec", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--night-black); color: var(--white);
+  font-family: var(--font); font-weight: 400;
+  font-size: 16px; line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px 120px; }
+
+/* --- header --------------------------------------------------- */
+header.top { padding: 72px 0 56px; border-bottom: 1px solid var(--hairline); }
+.lockup { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+.lockup svg { width: 44px; height: 44px; display: block; }
+.lockup .wordmark { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+h1.display {
+  margin: 0 0 20px; font-weight: 400; font-size: 80px; line-height: 1.05;
+  letter-spacing: -1.44px; max-width: 16ch;
+}
+h1.display b { font-weight: 700; }
+.lede { margin: 0; font-size: 32px; line-height: 1.4; font-weight: 400; color: var(--muted); max-width: 26ch; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 44px; }
+.meta-row div { font-size: 14px; color: var(--muted); }
+.meta-row b { display: block; color: var(--white); font-weight: 500; font-size: 16px; margin-top: 4px; }
+
+/* --- section scaffolding --------------------------------------- */
+section { padding: 72px 0; border-bottom: 1px solid var(--hairline); }
+.eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent-text); margin: 0 0 20px;
+}
+h2 { margin: 0 0 12px; font-size: 40px; font-weight: 700; letter-spacing: -1.2px; line-height: 1.2; }
+.note { margin: 0 0 36px; color: var(--muted); font-size: 16px; max-width: 62ch; }
+.note b { color: var(--white); font-weight: 500; }
+code { font-size: 13px; color: var(--ash-grey); }
+
+/* --- colour ----------------------------------------------------- */
+.hierarchy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.swatch { border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.swatch .fill { height: 150px; }
+.swatch .body { padding: 20px; }
+.swatch .tier { font-size: 18px; font-weight: 700; }
+.swatch .hex { font-size: 14px; color: var(--muted); letter-spacing: 0.04em; margin-top: 4px; }
+.swatch .use { font-size: 14px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
+
+.palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.chip { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.chip .fill { height: 60px; }
+.chip .body { padding: 12px 14px 14px; }
+.chip .nm { font-size: 14px; font-weight: 500; }
+.chip .hx { font-size: 12px; color: var(--muted); margin-top: 3px; letter-spacing: 0.04em; }
+.sub-label { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 40px 0 18px; }
+
+/* --- type ------------------------------------------------------- */
+.ladder > div { border-bottom: 1px solid var(--hairline); padding: 22px 0; display: flex; align-items: baseline; justify-content: space-between; gap: 32px; }
+.ladder > div:last-child { border-bottom: 0; }
+.ladder .spec { font-size: 13px; color: var(--muted); white-space: nowrap; letter-spacing: 0.04em; }
+.w100 { font-weight: 100; } .w300 { font-weight: 300; } .w400 { font-weight: 400; }
+.w500 { font-weight: 500; } .w700 { font-weight: 700; }
+.ramp { margin-top: 48px; }
+.ramp table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.ramp th { text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 16px 14px 0; border-bottom: 1px solid var(--hairline); }
+.ramp td { padding: 13px 16px 13px 0; border-bottom: 1px solid var(--hairline); color: var(--muted); }
+.ramp td:first-child { color: var(--white); font-weight: 500; }
+
+/* --- components -------------------------------------------------- */
+.components { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.demo { border: 1px solid var(--hairline); border-radius: 12px; padding: 32px; background: var(--surface); }
+.demo .lbl { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+.demo .spec { font-size: 13px; color: var(--muted); margin-top: 22px; line-height: 1.6; }
+.btn-primary {
+  display: inline-block; background: var(--frost-navy); color: var(--white);
+  font-family: var(--font); font-weight: 700; font-size: 20px;
+  padding: 14px 24px 12px; border: 0; border-radius: var(--radius-pill);
+  text-decoration: none; cursor: pointer;
+}
+.nav-demo { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+.nav-demo a { color: var(--white); text-decoration: none; font-weight: 500; font-size: 16px; }
+.field { border: 0; border-bottom: 1px solid var(--tealish-blue); background: transparent; color: var(--white); font-family: var(--font); font-size: 16px; padding: 10px 0; width: 100%; }
+.req { color: var(--accent-text); }
+
+/* --- mark + lockups ---------------------------------------------- */
+.marks { display: flex; align-items: flex-end; gap: 48px; flex-wrap: wrap; }
+.mark-box { text-align: center; }
+.mark-box svg { display: block; margin: 0 auto 12px; }
+.mark-box span { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; }
+.lockups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.lk { border: 1px solid var(--hairline); border-radius: 12px; padding: 32px; background: var(--surface); display: flex; flex-direction: column; gap: 14px; min-height: 190px; }
+.lk .row { display: flex; align-items: center; gap: 14px; }
+.lk .nm { font-size: 20px; font-weight: 700; letter-spacing: 0.02em; }
+.lk .split { font-size: 24px; line-height: 1.2; }
+.lk .split .lo { font-weight: 300; color: var(--muted); display: block; }
+.lk .split .hi { font-weight: 700; }
+.lk .accent { color: var(--frost-navy); }
+.lk .cap { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: auto; }
+
+/* --- footer ------------------------------------------------------- */
+footer { padding: 56px 0 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+footer b { color: var(--white); font-weight: 500; }
+
+@media (max-width: 900px) {
+  h1.display { font-size: 48px; letter-spacing: -0.96px; }
+  .hierarchy, .components, .lockups { grid-template-columns: 1fr; }
+  .lede { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="lockup">
+      <svg width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg>
+      <span class="wordmark">Frost Design Group</span>
+    </div>
+    <h1 class="display">Frost is a <b>User Interface Design Agency</b></h1>
+    <p class="lede">We design screens experienced by millions.</p>
+    <div class="meta-row">
+      <div>Source<b>frostdesigngroup.com</b></div>
+      <div>Extracted<b>12 October 2026</b></div>
+      <div>Typeface<b>Sailec</b></div>
+      <div>Primary<b>#0B1464</b></div>
+    </div>
+  </header>
+
+  <section>
+    <p class="eyebrow">Colour hierarchy</p>
+    <h2>One blue, one black, one white.</h2>
+    <p class="note">The site is disciplined about colour: a near-black canvas, white type, and a single saturated blue reserved almost entirely for calls to action. Everything else is a tint or a grey.</p>
+    <div class="hierarchy">
+      <div class="swatch">
+        <div class="fill" style="background:#0b1464"></div>
+        <div class="body">
+          <div class="tier">Frost Navy</div>
+          <div class="hex">#0B1464</div>
+          <div class="use">Primary. Set by Frost as the brand primary — this supersedes the blue the live site currently paints. White on it measures 16.2:1, so it carries full-bleed surfaces and filled buttons well.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background:#040808"></div>
+        <div class="body">
+          <div class="tier">Night Black</div>
+          <div class="hex">#040808</div>
+          <div class="use">Secondary. The dominant canvas. Full-bleed sections alternate between this and true black.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background:#ffffff"></div>
+        <div class="body">
+          <div class="tier">White</div>
+          <div class="hex">#FFFFFF</div>
+          <div class="use">Tertiary. All display and body type on dark, plus the light sections. The mark is drawn in white.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Extended palette</p>
+    <h2>Measured, then declared.</h2>
+    <p class="note">Two sources, kept apart on purpose. The first group is what the rendered page actually paints. The second is the site's own named variable set — useful vocabulary, though several entries are declared and never referenced.</p>
+
+    <div class="sub-label">Measured on the rendered page</div>
+    <div class="palette">
+      <div class="chip"><div class="fill" style="background:#8fa0ab"></div><div class="body"><div class="nm">Muted blue-grey</div><div class="hx">#8FA0AB</div></div></div>
+      <div class="chip"><div class="fill" style="background:#daebfa"></div><div class="body"><div class="nm">Tint blue</div><div class="hx">#DAEBFA</div></div></div>
+      <div class="chip"><div class="fill" style="background:#f4faff"></div><div class="body"><div class="nm">Tint pale</div><div class="hx">#F4FAFF</div></div></div>
+      <div class="chip"><div class="fill" style="background:#41393e"></div><div class="body"><div class="nm">Ink on light</div><div class="hx">#41393E</div></div></div>
+      <div class="chip"><div class="fill" style="background:#272e42"></div><div class="body"><div class="nm">Deep navy</div><div class="hx">#272E42</div></div></div>
+      <div class="chip"><div class="fill" style="background:#000000"></div><div class="body"><div class="nm">True black</div><div class="hx">#000000</div></div></div>
+    </div>
+
+    <div class="sub-label">Declared in the site's variable set</div>
+    <div class="palette">
+      <div class="chip"><div class="fill" style="background:#060a12"></div><div class="body"><div class="nm">night</div><div class="hx">#060A12</div></div></div>
+      <div class="chip"><div class="fill" style="background:#212629"></div><div class="body"><div class="nm">dark</div><div class="hx">#212629</div></div></div>
+      <div class="chip"><div class="fill" style="background:#2e3949"></div><div class="body"><div class="nm">tealish-blue</div><div class="hx">#2E3949</div></div></div>
+      <div class="chip"><div class="fill" style="background:#595f63"></div><div class="body"><div class="nm">carbon-gray</div><div class="hx">#595F63</div></div></div>
+      <div class="chip"><div class="fill" style="background:#b1bacc"></div><div class="body"><div class="nm">ash-grey</div><div class="hx">#B1BACC</div></div></div>
+      <div class="chip"><div class="fill" style="background:#5bceff"></div><div class="body"><div class="nm">bluish-cyan</div><div class="hx">#5BCEFF</div></div></div>
+      <div class="chip"><div class="fill" style="background:#aeccea"></div><div class="body"><div class="nm">cornflower-blue</div><div class="hx">#AECCEA</div></div></div>
+      <div class="chip"><div class="fill" style="background:#ebfcfd"></div><div class="body"><div class="nm">twilight-blue</div><div class="hx">#EBFCFD</div></div></div>
+      <div class="chip"><div class="fill" style="background:#fbfffa"></div><div class="body"><div class="nm">ceramic</div><div class="hx">#FBFFFA</div></div></div>
+      <div class="chip"><div class="fill" style="background:#0569ff"></div><div class="body"><div class="nm">bright-blue</div><div class="hx">#0569FF</div></div></div>
+    </div>
+    <p class="note" style="margin:28px 0 0">Three different blues are in play, so they are kept distinct. The site’s variable set declares <code>bright-blue: #0569FF</code>; every button on the live page actually computes to <b>#0B1464</b>; and the brand primary is <b>#0B1464</b>, set by Frost. Only the last is normative — the other two are recorded because the live site still shows them.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Typography</p>
+    <h2>Sailec, five weights, tight tracking.</h2>
+    <p class="note">One family does everything — display, body, navigation, labels. There is no second face and no mono. Display sizes carry negative tracking; body copy sits at normal.</p>
+    <div class="ladder">
+      <div><span class="w100" style="font-size:38px">Sailec Thin</span><span class="spec">100</span></div>
+      <div><span class="w300" style="font-size:38px">Sailec Light</span><span class="spec">300 · display</span></div>
+      <div><span class="w400" style="font-size:38px">Sailec Regular</span><span class="spec">400 · display, body</span></div>
+      <div><span class="w500" style="font-size:38px">Sailec Medium</span><span class="spec">500 · navigation</span></div>
+      <div><span class="w700" style="font-size:38px">Sailec Bold</span><span class="spec">700 · headlines, buttons</span></div>
+      <div><span class="w400" style="font-size:38px;font-style:italic">Sailec Regular Italic</span><span class="spec">400 italic</span></div>
+    </div>
+    <div class="ramp">
+      <div class="sub-label" style="margin-top:0">Measured on the live page</div>
+      <table>
+        <thead><tr><th>Role</th><th>Weight</th><th>Size</th><th>Tracking</th><th>Line height</th></tr></thead>
+        <tbody>
+          <tr><td>Hero display</td><td>400</td><td>80px</td><td>-1.44px</td><td>84px</td></tr>
+          <tr><td>Section headline</td><td>700</td><td>64px</td><td>-1.28px</td><td>—</td></tr>
+          <tr><td>Page headline</td><td>700</td><td>40px</td><td>-1.2px</td><td>48px</td></tr>
+          <tr><td>Light display</td><td>300</td><td>48px</td><td>-0.96px</td><td>55px</td></tr>
+          <tr><td>Lede</td><td>400</td><td>32px</td><td>normal</td><td>45px</td></tr>
+          <tr><td>Body large</td><td>400</td><td>20px</td><td>normal</td><td>28px</td></tr>
+          <tr><td>Body</td><td>400</td><td>16px</td><td>normal</td><td>22px</td></tr>
+          <tr><td>Navigation</td><td>500</td><td>16px</td><td>normal</td><td>16px</td></tr>
+          <tr><td>Button</td><td>700</td><td>20–22px</td><td>normal</td><td>20–22px</td></tr>
+          <tr><td>Caption</td><td>400</td><td>14px</td><td>normal</td><td>20px</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Components</p>
+    <h2>Pill geometry, hairline structure.</h2>
+    <p class="note">The component language is narrow and consistent: one button shape, underline form fields, almost no borders or shadows. Radius is either a full pill or nearly nothing.</p>
+    <div class="components">
+      <div class="demo">
+        <div class="lbl">Primary button</div>
+        <a class="btn-primary" href="#">Work with Frost</a>
+        <div class="spec">#0B1464 · white · Sailec 700 20px<br>padding 14px 24px 12px · radius 45px (pill)<br><span style="color:#8fa0ab">Geometry measured on the live site; fill is the new primary.</span></div>
+      </div>
+      <div class="demo">
+        <div class="lbl">Navigation</div>
+        <div class="nav-demo">
+          <a href="#">Case Studies</a><a href="#">Made to Measure</a><a href="#">Events</a><a href="#">Life at Frost</a>
+        </div>
+        <div class="spec">Sailec 500 16px · white · no underline<br>The CTA sits in the bar as a pill button.</div>
+      </div>
+      <div class="demo">
+        <div class="lbl">Form field</div>
+        <label style="font-size:14px;color:#8fa0ab">Complete Name <span class="req">*</span></label>
+        <input class="field" value="">
+        <div class="spec">No box. A single 1px bottom rule in #2E3949,<br>label above, required marker in Frost Blue.</div>
+      </div>
+      <div class="demo">
+        <div class="lbl">Eyebrow label</div>
+        <p class="eyebrow" style="margin:0">Contact</p>
+        <div class="spec">Sailec 700 12px · uppercase · 0.18em tracking<br>Frost Blue. Sits above a section headline.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">The mark</p>
+    <h2>A snowflake, drawn once.</h2>
+    <p class="note">A single-path crystal on a 40×40 viewBox, painted white. This is the exact SVG from the site — the geometry is not redrawn here, only scaled and recoloured.</p>
+    <div class="marks">
+      <div class="mark-box"><svg width="72" height="72" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg><span>72px</span></div>
+      <div class="mark-box"><svg width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg><span>44px</span></div>
+      <div class="mark-box"><svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg><span>28px</span></div>
+      <div class="mark-box"><svg width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#0B1464"/></svg><span>Frost Navy</span></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Wordmarks · Lockups</p>
+    <h2>Three treatments.</h2>
+    <p class="note">The split-weight lockup is not an invention — it is how the homepage sets its own hero line, light over bold.</p>
+    <div class="lockups">
+      <div class="lk">
+        <div class="row"><svg width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 21.8115L5.39741 24.0296L6.87616 27.5786L4.65804 32.976L6.43253 33.7153L7.1719 35.4898L12.4214 33.2717L16.1183 34.7505L18.3364 40L20.1109 39.2606L21.8854 40L24.0296 34.7505L27.7264 33.1978L32.976 35.342L33.7153 33.5675L35.4898 32.8281L33.2717 27.5786L34.7505 23.8817L40 21.6636L39.2606 19.8891L40 18.1146L34.6026 15.8965L33.1238 12.3475L35.342 6.95009L33.5675 6.21072L32.8281 4.43623L27.3567 6.80222L23.9556 5.39741L21.5896 0L19.8152 0.739372L18.0407 0L15.8226 5.47135L12.4954 6.87616L7.02403 4.65804L6.28466 6.43253L4.51017 7.1719L6.80222 12.5693L5.39741 15.9704L0 18.3364L0.739372 20.1109L0 21.8115ZM12.0518 14.8614L12.4214 16.9316L10.7209 18.1146L8.57671 16.6359L9.46396 14.4177L12.0518 14.8614ZM14.2699 9.61183L16.488 8.65065L17.9667 10.7209L16.7837 12.4214L14.7874 12.1257L14.2699 9.61183ZM18.854 6.50647L19.8891 3.99261L20.9242 6.50647L19.8891 7.98521L18.854 6.50647ZM25.0647 12.0518L22.9945 12.4214L21.8115 10.7209L23.2902 8.57671L25.5083 9.46396L25.0647 12.0518ZM18.2625 15.8965L19.963 13.4566L21.6636 15.8965L24.5471 15.3789L24.0296 18.2625L26.4695 19.963L24.0296 21.6636L24.5471 24.5471L21.6636 24.0296L19.963 26.4695L18.2625 24.0296L15.3789 24.5471L15.8965 21.6636L13.4566 19.963L15.8965 18.2625L15.3789 15.3789L18.2625 15.8965ZM30.4621 14.2699L31.3494 16.488L29.2052 18.0407L27.5046 16.8577L27.8743 14.7874L30.4621 14.2699ZM27.8743 25.0647L27.5046 22.9945L29.2052 21.8115L31.4233 23.3641L30.536 25.5083L27.8743 25.0647ZM31.9409 19.8891L33.4196 18.854L35.9335 19.8891L33.4196 20.9242L31.9409 19.8891ZM25.6562 30.536L23.512 31.4233L21.9593 29.2052L23.1423 27.5046L25.2126 27.8743L25.6562 30.536ZM21.0721 33.4196L20.037 35.9335L19.0018 33.4196L20.037 31.9409L21.0721 33.4196ZM14.8614 27.8743L16.9316 27.5046L18.1146 29.2052L16.5619 31.4233L14.4177 30.536L14.8614 27.8743ZM9.46396 25.6562L8.57671 23.4381L10.7209 21.8854L12.4214 23.0684L12.1257 25.1386L9.46396 25.6562ZM7.98521 20.037L6.50647 21.0721L3.99261 20.037L6.50647 19.0018L7.98521 20.037ZM8.72458 31.2754L9.7597 28.7616L11.5342 28.4658L11.2384 30.2403L8.72458 31.2754ZM28.4658 28.3919L30.2403 28.6876L31.2754 31.2015L28.8355 30.1664L28.4658 28.3919ZM31.2015 8.65065L30.1664 11.0906L28.3919 11.3863L28.6876 9.61183L31.2015 8.65065ZM11.4603 11.5342L9.68577 11.2384L8.65065 8.72458L11.1645 9.7597L11.4603 11.5342Z" fill="#FFFFFF"/></svg><span class="nm">Frost Design Group</span></div>
+        <div class="cap">Mark + wordmark</div>
+      </div>
+      <div class="lk">
+        <div class="split"><span class="lo">Frost is a</span><span class="hi">User Interface<br>Design Agency</span></div>
+        <div class="cap">Split weight · the site's own hero</div>
+      </div>
+      <div class="lk" style="background:#ffffff;border-color:#ffffff">
+        <div class="split"><span class="hi" style="color:#0b1464">FROST<span class="accent">.</span></span></div>
+        <div class="cap" style="color:#41393e">Accent lockup · on light</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>design/frost/design-system.html</b> · extracted 12 October 2026 · see <code>brand-book-a4.pdf</code> for the one-page summary.</p>
+    <p>Generated with the <b>design-system</b> skill (<code>github.com/robonuggets/design-system</code>, MIT) from one reference: the live site at frostdesigngroup.com. Colours were read from computed styles on the rendered page and from the site's stylesheet variable set; type sizes were measured on real elements; the mark is the site's own inline SVG.</p>
+    <p><b>Set, not extracted:</b> the primary <b>#0B1464</b> is Frost’s own design decision, applied here on request. Every other value in this document was taken from the live site.</p>
+    <p><b>Not included:</b> design principles. The site does not publish any, and the toolkit's rule is to drop a section rather than invent one.</p>
+    <p><b>Sailec is a licensed typeface</b>, self-hosted here from files supplied by Frost. The webfonts travel with this folder for internal use — check the licence before publishing them on a public domain or passing them outside the company.</p>
+  </footer>
+
+</div>
+</body>
+</html>

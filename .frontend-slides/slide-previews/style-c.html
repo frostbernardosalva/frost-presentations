@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A warm-canvas editorial interface</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===========================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES
+   Include this ENTIRE file in every presentation.
+   Slides are authored at 1920×1080 and scaled as a whole.
+   =========================================== */
+
+/* 1. Lock the browser viewport */
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--stage-bg, #000);
+}
+
+/* 2. Full-window deck viewport */
+.deck-viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: var(--stage-bg, #000);
+}
+
+/* 3. Fixed 16:9 design canvas.
+   JavaScript sets transform: translate(...) scale(...). */
+.deck-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    transform-origin: 0 0;
+    background: var(--slide-bg, #fff);
+}
+
+/* 4. Slides stack inside the fixed stage.
+   Content must be laid out at 1920×1080, not reflowed per device. */
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--slide-bg, #fff);
+}
+
+.slide.active,
+.slide.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+/* 5. Keep media inside authored slide bounds */
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 6. Presentation chrome stays outside the slide design system */
+.deck-controls {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+/* 7. Print one fixed-size slide per page */
+@media print {
+    html,
+    body {
+        width: 1920px;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+    }
+
+    .deck-viewport {
+        position: static;
+        overflow: visible;
+        background: #fff;
+    }
+
+    .deck-stage {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none !important;
+        background: none;
+    }
+
+    .slide {
+        position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 1920px;
+        height: 1080px;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+
+    .deck-controls {
+        display: none !important;
+    }
+}
+
+/* 8. Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+}
+
+
+/* staggered entrance — one orchestrated load beat */
+.reveal { opacity: 0; transform: translateY(34px);
+  transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
+.slide.visible .reveal { opacity: 1; transform: none; }
+.slide.visible .reveal:nth-child(1) { transition-delay: .05s; }
+.slide.visible .reveal:nth-child(2) { transition-delay: .17s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: .29s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: .41s; }
+.slide.visible .reveal:nth-child(5) { transition-delay: .53s; }
+
+
+/* tokens lifted verbatim from DESIGN.md */
+:root {
+    --color-canvas: #faf9f5;
+    --color-surface-soft: #f5f0e8;
+    --color-surface-card: #efe9de;
+    --color-primary: #cc785c;
+    --color-ink: #141413;
+    --color-body: #3d3d3a;
+    --color-muted: #6c6a64;
+    --color-hairline: #e6dfd8;
+    --color-on-primary: #ffffff;
+    --stage-bg: #e6dfd8;
+    --slide-bg: #faf9f5;
+}
+.slide { background: var(--color-canvas); color: var(--color-ink);
+         font-family: "Inter", sans-serif; }
+.inner { position: absolute; inset: 0; padding: 96px 144px;
+         display: flex; flex-direction: column; }
+.topline { display: flex; justify-content: space-between; align-items: center; }
+.wordmark { display: flex; align-items: center; gap: 18px; }
+.wordmark svg { width: 30px; height: 30px; }
+.wordmark span { font-family: "EB Garamond", serif; font-size: 33px; letter-spacing: -.01em; }
+.badge { background: var(--color-primary); color: var(--color-on-primary);
+         border-radius: 9999px; padding: 7px 20px;
+         font-size: 18px; font-weight: 500; letter-spacing: .125em; text-transform: uppercase; }
+.hero { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.eyebrow { font-size: 18px; font-weight: 500; letter-spacing: .125em; text-transform: uppercase;
+           color: var(--color-muted); margin: 0 0 24px; }
+/* display: serif, weight 400, negative tracking — non-negotiable per the spec */
+h1 { font-family: "EB Garamond", serif; font-weight: 400; font-size: 96px; line-height: 1.05;
+     letter-spacing: -.023em; margin: 0 0 36px; max-width: 12ch; }
+.sub { font-size: 24px; line-height: 1.55; color: var(--color-body); max-width: 44ch; margin: 0 0 48px; }
+.actions { display: flex; align-items: center; gap: 36px; }
+.btn { display: inline-flex; align-items: center; justify-content: center;
+       background: var(--color-primary); color: var(--color-on-primary);
+       font-size: 21px; font-weight: 500; padding: 18px 30px; border-radius: 8px; }
+.link { color: var(--color-primary); font-size: 24px; font-weight: 500; }
+.card { background: var(--color-surface-soft); border: 1px solid var(--color-hairline);
+        border-radius: 16px; padding: 48px; display: grid; place-items: center; }
+.foot { display: flex; gap: 18px; }
+.pill { background: var(--color-surface-card); color: var(--color-ink);
+        border-radius: 9999px; padding: 7px 20px; font-size: 19px; font-weight: 500; }
+
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+  <main class="deck-stage" id="deckStage">
+    <section class="slide title-slide active visible">
+      <div class="inner">
+        <div class="topline reveal">
+          <div class="wordmark"><svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+<line x1="12" y1="2.5" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="21.5" y2="12"/>
+<line x1="5.3" y1="5.3" x2="18.7" y2="18.7"/><line x1="18.7" y1="5.3" x2="5.3" y2="18.7"/></g></svg><span>Claude</span></div>
+          <span class="badge">Design System</span>
+        </div>
+        <div class="hero">
+          <div>
+            <p class="eyebrow reveal">DESIGN.md &middot; alpha</p>
+            <h1 class="reveal">A warm-canvas editorial interface</h1>
+            <p class="sub reveal">Cream, coral and dark navy &mdash; the trinity behind claude.com</p>
+            <div class="actions reveal">
+              <span class="btn">Explore the tokens</span>
+              <span class="link">Read the spec</span>
+            </div>
+          </div>
+          <div class="card reveal"><svg viewBox="0 0 440 320" width="100%" aria-hidden="true">
+<g fill="none" stroke-linecap="round">
+  <circle cx="148" cy="150" r="94" stroke="var(--color-primary)" stroke-width="1.5"/>
+  <circle cx="148" cy="150" r="60" stroke="var(--color-ink)" stroke-width="1.5" opacity="0.45"/>
+  <g stroke="var(--color-primary)" stroke-width="2.4">
+    <line x1="148" y1="104" x2="148" y2="196"/><line x1="102" y1="150" x2="194" y2="150"/>
+    <line x1="115" y1="117" x2="181" y2="183"/><line x1="181" y1="117" x2="115" y2="183"/>
+  </g>
+  <g stroke="var(--color-ink)" stroke-width="1.5" opacity="0.7">
+    <line x1="288" y1="92" x2="400" y2="92"/><line x1="288" y1="116" x2="370" y2="116"/>
+    <line x1="288" y1="140" x2="392" y2="140"/><line x1="288" y1="164" x2="342" y2="164"/>
+  </g>
+  <rect x="288" y="198" width="112" height="62" rx="12" stroke="var(--color-ink)" stroke-width="1.5" opacity="0.7"/>
+</g>
+<circle cx="148" cy="150" r="7" fill="var(--color-primary)"/>
+<circle cx="344" cy="229" r="5" fill="var(--color-primary)"/>
+</svg></div>
+        </div>
+        <div class="foot reveal">
+          <span class="pill">#faf9f5 &nbsp;canvas</span>
+          <span class="pill">#cc785c &nbsp;coral</span>
+          <span class="pill">#181715 &nbsp;navy</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+class SlidePresentation {
+    constructor() {
+        this.slides = document.querySelectorAll('.slide');
+        this.currentSlide = 0;
+        this.stage = document.getElementById('deckStage');
+        this.setupStageScale();
+        this.setupKeyboardNav();
+        this.showSlide(0);
+    }
+    setupStageScale() {
+        const scale = () => {
+            const factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+            const x = (window.innerWidth - 1920 * factor) / 2;
+            const y = (window.innerHeight - 1080 * factor) / 2;
+            this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        };
+        scale();
+        window.addEventListener('resize', scale);
+    }
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault(); this.showSlide(this.currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault(); this.showSlide(this.currentSlide - 1);
+            }
+        });
+    }
+    showSlide(index) {
+        this.currentSlide = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === this.currentSlide);
+            slide.classList.toggle('visible', i === this.currentSlide);
+        });
+    }
+}
+new SlidePresentation();
+</script>
+</body>
+</html>
