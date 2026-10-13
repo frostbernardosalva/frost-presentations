@@ -354,13 +354,15 @@ strong, b { font-weight: 700; color: var(--white); }
    letting it run the full 1656px. */
 .run2 { position: relative; display: flex; flex-direction: column; align-items: flex-start; margin-top: 48px; }
 
-/* Hover popovers, shared by both triggers on the .once line. Each panel is a
-   DOM descendant of its .pop trigger but is positioned against .run2, so it can
-   span the full 1656 and still stay open while the pointer is inside it.
-   Absolute => neither can shift the slide's layout, which stays at 740px of the
-   836px box. Only one can be open at a time, so the two overlapping is moot.
+/* Hover popovers. Five of them now: two on slide 2's .once line, three on
+   slide 5's chart rows. Each panel is a DOM descendant of its .pop trigger but
+   is positioned against the nearest positioned ancestor - .run2 on slide 2,
+   .bars on slide 5 - so it can span the full 1656 and still stay open while the
+   pointer is inside it. Absolute => none of them can shift a slide's layout.
+   Only one can be open at a time, so two overlapping is moot.
    Hover does not exist on a clicker or in the PDF, so everything the panels
-   hold is an elaboration - nothing load-bearing lives only in here. */
+   hold is an elaboration - nothing load-bearing lives only in here. In
+   particular slide 5's caveat stays on the slide, never in a panel. */
 .pop {
     color: var(--white); cursor: help;
     border-bottom: 1px dashed rgba(218,235,250,.5);
@@ -397,6 +399,22 @@ strong, b { font-weight: 700; color: var(--white); }
    inherit the question grid flex row and sit the note beside the path. */
 .popg.paths > span { display: block; }
 .popg.paths .pth { display: block; color: var(--pass); font-weight: 500; letter-spacing: -0.1px; }
+/* Slide 5's panels list pages, not numbered answers, so each cell is a row of
+   three columns - title, its own recorded time, the live URL - rather than a
+   badge beside a label. Two cells per line: Mynt's six rows then land as 3x2
+   and the panel stays short enough to clear the brand bar. */
+.popr { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 56px; }
+.popr > span { display: grid; grid-template-columns: 1fr 86px 1.15fr; align-items: baseline; gap: 20px; font-size: 17px; }
+.popr b { font-weight: 500; color: var(--white); }
+/* tabular-nums so 1h 20m and 40m line up on the right edge of their column */
+.popr em { font-style: normal; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.popr a { justify-self: start; color: var(--pass); text-decoration: none; border-bottom: 1px solid rgba(91,206,255,.32); }
+.popr a:hover { border-bottom-color: var(--pass); }
+/* The one row that is not a page: a Stage 6 behaviours pass on IPO at a Glance.
+   It is inside the median, so hiding it would make the median unexplainable -
+   but it must not read as a sixth page. Muted, lighter, and no URL. */
+.popr .notpage b { color: var(--muted); font-weight: 400; }
+.popr .nb { color: var(--muted); }
 .cmdline {
     background: #141414; border-left: 3px solid var(--pass); border-radius: 0 8px 8px 0;
     padding: 12px 18px;
@@ -511,8 +529,16 @@ strong, b { font-weight: 700; color: var(--white); }
 
 /* === 6 · OUTPUT — a chart, not a table === */
 .bars { margin-top: 56px; display: flex; flex-direction: column; gap: 38px; }
-.barrow { display: grid; grid-template-columns: 210px 1fr 190px; align-items: center; gap: 34px; }
+/* position: relative so each .popp panel anchors to its own row and opens
+   directly above the project being pointed at. It has to be stated: without it
+   the panel still anchored here, but only because .reveal's translateY happens
+   to make a containing block - an animation artifact that vanishes the moment
+   the reveal settles, moving the panel mid-transition. */
+.barrow { position: relative; display: grid; grid-template-columns: 210px 1fr 190px; align-items: center; gap: 34px; }
 .barrow .who { font-size: 30px; font-weight: 700; letter-spacing: -0.4px; }
+/* the .pop default underline is sized for 17px body text and reads as a box
+   under a 30px name, so the trigger gets its own thicker, closer rule. */
+.barrow .who .pop { border-bottom-width: 2px; padding-bottom: 2px; }
 .barrow .who s { display: block; font-size: 16px; color: var(--muted); font-weight: 400; text-decoration: none; margin-top: 5px; }
 .bar { height: 54px; border-radius: 8px; overflow: hidden; display: flex; background: rgba(255,255,255,.05); }
 .bar u {
@@ -808,17 +834,40 @@ strong, b { font-weight: 700; color: var(--white); }
         <h2 class="head reveal" style="max-width:22ch">Where the time goes.</h2>
         <div class="bars">
           <div class="barrow reveal">
-            <div class="who">Frost<s>1 page · first project</s></div>
+            <div class="who"><span class="pop" tabindex="0">Frost<span class="popp" role="note">
+              <span class="poph">The live page</span>
+              <span class="popr">
+                <span><b>Homepage</b><em>2h 03m</em><a href="https://design-bootcamp.webflow.io/frost-main" target="_blank" rel="noopener">/frost-main</a></span>
+              </span>
+              <span class="popf">Build 1h 46m, gate 4m, visual pass 10m. No rework recorded against it.</span>
+            </span></span><s>1 page &middot; first project</s></div>
             <div class="bar"><u class="build b86">86%</u><u class="verify v14">14%</u></div>
             <div class="tot">2h 03m<s>per page</s></div>
           </div>
           <div class="barrow reveal">
-            <div class="who">Mynt<s>6 pages</s></div>
+            <div class="who"><span class="pop" tabindex="0">Mynt<span class="popp" role="note">
+              <span class="poph">Five live pages &middot; six timed runs</span>
+              <span class="popr">
+                <span><b>IPO at a Glance</b><em>1h 20m</em><a href="https://design-bootcamp.webflow.io/mynt-v2/ipo-at-a-glance" target="_blank" rel="noopener">/mynt-v2/ipo-at-a-glance</a></span>
+                <span><b>Newsroom</b><em>40m</em><a href="https://design-bootcamp.webflow.io/mynt-v2/newsroom" target="_blank" rel="noopener">/mynt-v2/newsroom</a></span>
+                <span><b>Cookie Policy</b><em>18m</em><a href="https://design-bootcamp.webflow.io/mynt-v2/cookie-policy" target="_blank" rel="noopener">/mynt-v2/cookie-policy</a></span>
+                <span><b>Result Center</b><em>1h 00m</em><a href="https://design-bootcamp.webflow.io/mynt-v2/result-center" target="_blank" rel="noopener">/mynt-v2/result-center</a></span>
+                <span><b>Homepage</b><em>1h 04m</em><a href="https://design-bootcamp.webflow.io/mynt-v2/home" target="_blank" rel="noopener">/mynt-v2/home</a></span>
+                <span class="notpage"><b>Stage 6 behaviours <span class="nb">&mdash; a pass on IPO at a Glance</span></b><em>13m</em></span>
+              </span>
+              <span class="popf">The median is over all six runs, which is why the fastest reads 13m. A sixth page, IR Overview, is still in <b>Converting</b> &mdash; not timed, not counted, not linked.</span>
+            </span></span><s>5 pages &middot; 6 runs</s></div>
             <div class="bar"><u class="build b20">20%</u><u class="verify v80">80%</u></div>
             <div class="tot">50m<s>median · 13m to 1h 20m</s></div>
           </div>
           <div class="barrow reveal">
-            <div class="who">Golden Bull<s>1 page · 21 publishes</s></div>
+            <div class="who"><span class="pop" tabindex="0">Golden Bull<span class="popp" role="note">
+              <span class="poph">The live page</span>
+              <span class="popr">
+                <span><b>Emerging Bull Award</b><em>2h 18m</em><a href="https://design-bootcamp.webflow.io/golden-bull" target="_blank" rel="noopener">/golden-bull</a></span>
+              </span>
+              <span class="popf">Build 1h 18m, visual pass 28m, rework 27m. Stages 0&ndash;4 predate the timer, so they are not in the total.</span>
+            </span></span><s>1 page &middot; 21 publishes</s></div>
             <div class="bar"><u class="build b57">57%</u><u class="verify v23">23%</u><u class="redo r20">20%</u></div>
             <div class="tot">2h 18m<s>per page · 27m of it rework</s></div>
           </div>
@@ -869,16 +918,16 @@ strong, b { font-weight: 700; color: var(--white); }
           <div class="cell"><span class="dot yes"></span><div><div class="lb">Webflow</div><div class="sb">Proven — everything measured was built here</div></div></div>
           <div class="cell"><span class="dot part"></span><div><div class="lb">Plain HTML</div><div class="sb">Part-proven — one section only</div></div></div>
           <div class="cell"><span class="dot no"></span><div><div class="lb">React · Vue</div><div class="sb">Not targets — new work, not untested work</div></div></div>
-          <div class="cell"><span class="dot no"></span><div><div class="lb">CMS pages</div><div class="sb">Not addressed at all</div></div></div>
+          <!-- <div class="cell"><span class="dot no"></span><div><div class="lb">CMS pages</div><div class="sb">Not addressed at all</div></div></div>
           <div class="cell"><span class="dot no"></span><div><div class="lb">Control test</div><div class="sb">Never run — no by-hand comparison exists</div></div></div>
-          <div class="cell"><span class="dot part"></span><div><div class="lb">The gate</div><div class="sb">4 of 7 rows have automated probes</div></div></div>
+          <div class="cell"><span class="dot part"></span><div><div class="lb">The gate</div><div class="sb">4 of 7 rows have automated probes</div></div></div> -->
         </div>
         <div class="nextrow reveal">
           <span class="lbl">Next</span>
           <span class="chip">CMS support</span>
           <span class="chip">A helper library — Finsweet</span>
           <span class="chip">Prove a second target</span>
-          <span class="chip">Run the control test</span>
+          <!-- <span class="chip">Run the control test</span> -->
         </div>
       </div>
       <p class="sign">frost-figma-to-web v0.14.0 · timings from the Frost, Mynt and Golden Bull conversions</p>
